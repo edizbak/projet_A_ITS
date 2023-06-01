@@ -1,4 +1,4 @@
-# projet_A_ITS
+# Projet_A_ITS
 Ce projet vise à la mise en place d'un environnement dynamique automatisé pour **Mediawiki**
 
 ## Environnement cible
@@ -23,6 +23,7 @@ Une première erreur apparaît :
 ![Erreur Vagrant](/images/cap1.png "Première erreur Vagrant")
 
 Une rapide recherche google nous apprend que le problème vient d'un certificat self-signed comme il en existe tant... [Des détails ici](/stories/certif_kaspersky.md)
+
 La solution retenue est d'ajouter une ligne à la config dans *Vagrantfile* :
 ```
 mediawiki.vm.box_download_insecure=true
@@ -34,5 +35,7 @@ On relance l'exécution du *Vagrantfile* pour tomber sur une nouvelle erreur :
 
 Celle-ci semble provoquée par le délai induit par l'UAC Windows, erreur bénigne donc.
 On détruit l'environnement, on relance, et la troisième tentative aboutit enfin :
-[Capture VirtualBox](/images/cap3.png "joie et félicité, ça a fini par marcher")
+
+![Capture VirtualBox](/images/cap3.png "joie et félicité, ça a fini par marcher")
+
 On s'auto-congratule modérément et on commence les recherches sur l'installation de **Mediawiki** pour le lendemain... Ça va être sympa, on va devoir installer PHP, une base de donnée, extraire plein de fichiers, bref il va y avoir de quoi faire !
