@@ -43,12 +43,12 @@ On s'auto-congratule modérément et on commence les recherches sur l'installati
 ***
 
 # Jour 2
-## Pré-requis d'installation de mediawiki
+## Pré-requis d'installation de Mediawiki
 
-Avant d'installer **mediawiki**, il nous faut installer quelques pré-requis :
+Avant d'installer **Mediawiki**, il nous faut installer quelques pré-requis :
 - nous avons besoin de **PHP**
 - il nous faut également un serveur http, on a choisi **Nginx**
-- enfin il faut une base de données, on prendra **PostgreSQL**
+- enfin il faut une base de données, on prendra <s>**PostgreSQL**</s> **MariaDB**
 
 Toutes ces étapes vont être effectuées automatiquement par le script d'installation *install_mediawiki.sh*.
 En attendant, on va déjà s'occuper d'installer ces paquets manuellement pour ensuite être en mesure d'automatiser ces étapes.
@@ -61,3 +61,39 @@ yum-config-manager --enable remi-php81
 yum update
 yum install -y php
 ```
+
+<s>
+  ## Installation PostgreSQL
+Il nous faut maintenant une version récente de **PostgreSQL**, et encore une fois celle qui est disponible sur les repos officiels de **CentOS7** est trop ancienne. On va donc installer les repos officiels de **PostrgreSQL**, puis installer leur version :  
+```
+yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+yum install -y postgresql15-server
+postgresql-15-setup initdb
+systemctl enable postgresql-15
+```
+  </s>
+ On change d'avis parce que MariaDB est le SGBD recommandé par la documentation de **Mediawiki**, et donc :  
+ 
+ ## Installation MariaDB
+ Il nous faut une version de **MariaDB** supérieure à la 10.3, qui n'est pas dans les repos officiels de **CentOS 7**, on va donc la chercher sur [MariaDB.com](https://mariadb.com/resources/blog/installing-mariadb-10-on-centos-7-rhel-7/) :  
+ ```
+ wget https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+ chmod 744 mariadb_repo_setup
+ ./mariadb_repo_setup
+ yum install MariaDB-server
+ systemctl enable mariadb
+ systemctl start mariadb
+ ```
+
+ Cette étape effectuée, nous devons désormais mettre en place les tables et l'utilisateur qui seront utilisées par **Mediawiki** :  
+ ```
+ mysql
+ CREATE DATABASE my_wiki;
+ CREATE USER 'wikiuser'@'localhost' IDENTIFIED BY 'database_password';
+ GRANT ALL PRIVILEGES ON my_wiki.* TO 'wikiuser'@'localhost' WITH GRANT OPTION;
+ ```
+ ![Résultat création MariaDB](/images/maria1.png)  
+ 
+ Tout semble ok, nous pouvons passer à l'installation de **Mediawiki** à proprement parler.
+ 
+## Installation Mediawiki
