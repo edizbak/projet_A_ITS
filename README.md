@@ -71,7 +71,7 @@ yum install -y postgresql15-server
 postgresql-15-setup initdb
 systemctl enable postgresql-15
 ```
-  </s>
+  </s>  
  On change d'avis parce que MariaDB est le SGBD recommandé par la documentation de **Mediawiki**, et donc :  
  
  ## Installation MariaDB
