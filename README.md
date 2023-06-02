@@ -98,3 +98,17 @@ systemctl enable postgresql-15
  Tout semble ok, nous pouvons passer à l'installation de **Mediawiki** à proprement parler.
  
 ## Installation Mediawiki
+Tout d'abord on doit exécuter un script de configuration php pour... configurer **Mediawiki**. Incroyable, je sais.
+```
+php /mediawiki_archive/maintenance/install.php
+```
+![Erreur script d'install](/images/erreur1.png "Ca marche paaaas")  
+
+Il nous manque des dépendances PHP pour faire tourner le script, on va donc installer les dépendances :  
+```
+yum install -y php81-php-mbstring php81-php-xml php81-php-intl
+```
+
+Allez on y croit, on relance le script php en croisant les doigts :  
+![Erreur install, le retour](/images/erreur2.png "C'est non !")  
+Et c'est tout pour aujourd'hui !
