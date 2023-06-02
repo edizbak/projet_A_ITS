@@ -39,3 +39,25 @@ On détruit l'environnement, on relance, et la troisième tentative aboutit enfi
 ![Capture VirtualBox](/images/cap3.png "joie et félicité, ça a fini par marcher")
 
 On s'auto-congratule modérément et on commence les recherches sur l'installation de **Mediawiki** pour le lendemain... Ça va être sympa, on va devoir installer PHP, une base de donnée, extraire plein de fichiers, bref il va y avoir de quoi faire !
+
+***
+
+# Jour 2
+## Pré-requis d'installation de mediawiki
+
+Avant d'installer **mediawiki**, il nous faut installer quelques pré-requis :
+- nous avons besoin de **PHP**
+- il nous faut également un serveur http, on a choisi **Nginx**
+- enfin il faut une base de données, on prendra **PostgreSQL**
+
+Toutes ces étapes vont être effectuées automatiquement par le script d'installation *install_mediawiki.sh*.
+En attendant, on va déjà s'occuper d'installer ces paquets manuellement pour ensuite être en mesure d'automatiser ces étapes.
+
+## Installation PHP  
+**Mediawiki** a besoin d'une version récente de **PHP** pour fonctionner, on va donc récupérer une version hébergée dans le repo [remirepo](http://rpms.remirepo.net/enterprise/remi-release-7.rpm) :  
+```
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum-config-manager --enable remi-php81
+yum update
+yum install -y php
+```
