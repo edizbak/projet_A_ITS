@@ -62,9 +62,9 @@ yum update
 yum install -y php
 ```
 
-<s>
+
   ## Installation PostgreSQL
-Il nous faut maintenant une version récente de **PostgreSQL**, et encore une fois celle qui est disponible sur les repos officiels de **CentOS7** est trop ancienne. On va donc installer les repos officiels de **PostrgreSQL**, puis installer leur version :  
+<s>Il nous faut maintenant une version récente de **PostgreSQL**, et encore une fois celle qui est disponible sur les repos officiels de **CentOS7** est trop ancienne. On va donc installer les repos officiels de **PostrgreSQL**, puis installer leur version :  
 ```
 yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 yum install -y postgresql15-server
@@ -72,6 +72,7 @@ postgresql-15-setup initdb
 systemctl enable postgresql-15
 ```
   </s>  
+  
  On change d'avis parce que MariaDB est le SGBD recommandé par la documentation de **Mediawiki**, et donc :  
  
  ## Installation MariaDB
