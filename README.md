@@ -95,6 +95,32 @@ systemctl enable postgresql-15
  ```
  ![Résultat création MariaDB](/images/maria1.png)  
  
+## Installation Nginx
+Encore une fois, les paquets de **CentOS 7** sont dépréciés, on doit donc passer par d'autres repos:  
+```
+[root@client1 vagrant]# cat > /etc/yum.repos.d/nginx.repo
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+# Ici il faut envoyer un EOF pour terminer la saisie
+
+yum-config-manager --enable nginx-mainline
+yum install nginx
+```
+![Install Nginx ok](/images/cap8.png "Et pourtant, il tourne !")
+ 
  Tout semble ok, nous pouvons passer à l'installation de **Mediawiki** à proprement parler.
  
 ## Installation Mediawiki
