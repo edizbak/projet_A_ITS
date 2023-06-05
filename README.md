@@ -112,3 +112,28 @@ yum install -y php81-php-mbstring php81-php-xml php81-php-intl
 Allez on y croit, on relance le script php en croisant les doigts :  
 ![Erreur install, le retour](/images/erreur2.png "C'est non !")  
 Et c'est tout pour aujourd'hui !
+
+# Jour 3
+## On reprend les tentatives d'installation de Mediawiki
+
+Avec l'esprit un peu plus clair, on installe les dépendances sans spécifier de numéro de version et le script arrête de se plaindre :  
+```
+yum install -y php-mbstring php-xml php-intl
+```
+```
+# on bouge les fichiers de /mediawiki-1.39.3 vers /wiki pour être plus propre
+mkdir wiki
+mv mediawiki-1.39.3/* ./wiki/ && rmdir mediawiki-1.39.3
+php wiki/maintenance/install.php
+```
+
+![Dépendances ok](/images/cap7.png "Bon ok c'est pas encore tout à fait fonctionnel mais on avance")  
+
+Un petit tour sur https://www.mediawiki.org/wiki/Manual:Install.php nous donne des exemples plus clairs !  
+```
+php maintenance/install.php --dbname=wikidb --dbserver="localhost" --installdbuser=root --installdbpass=rootpassword --dbuser=grabber --dbpass=grabber --server="http://wiki.domain.name/" --scriptpath=/ --lang=en --pass=aaaaa "Wiki Name" "Admin"
+```
+Cette commande doit être adaptée avant d'être lancée ! On va donc tenter (mot de passe obfusqué pour des raisons évidentes) :  
+```
+php maintenance/install.php
+```
